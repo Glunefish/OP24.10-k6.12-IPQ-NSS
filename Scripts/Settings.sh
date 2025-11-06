@@ -43,6 +43,9 @@ echo "更新 golang..."
 rm -rf ./feeds/packages/lang/golang
 git clone -b 25.x https://github.com/sbwml/packages_lang_golang ./feeds/packages/lang/golang
 
+#修复singbox调用golang-package
+sed -i 's|include \.\./\.\./lang/golang/golang-package\.mk|include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk|' ./feeds/packages/net/sing-box/Makefile
+
 #配置文件修改
 echo "CONFIG_PACKAGE_luci=y" >> ./.config
 echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
