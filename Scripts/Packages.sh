@@ -72,7 +72,7 @@ UPDATE_PACKAGE "argon" "sbwml/luci-theme-argon" "openwrt-24.10"
 #UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "luci-app-timewol luci-app-wolplus"
 #UPDATE_PACKAGE "vnt" "lmq8267/luci-app-vnt" "main"
 
-UPDATE_PACKAGE "GPackages" "GruntFish/GPackages" "Packages" "pkg" "luci-app-timecontrol luci-app-pushbot pushbot luci-app-wolplus luci-app-lucky lucky luci-app-watchcat-plus watchcat luci-app-watchdog watchdog gecoosac luci-app-gecoosac luci-app-adguardhome adguardhome"
+UPDATE_PACKAGE "GPackages" "GruntFish/GPackages" "Packages" "" "luci-app-timecontrol luci-app-pushbot pushbot luci-app-wolplus luci-app-lucky lucky luci-app-watchcat-plus watchcat luci-app-watchdog watchdog gecoosac luci-app-gecoosac luci-app-adguardhome adguardhome"
 
 #更新软件包版本
 UPDATE_VERSION() {
