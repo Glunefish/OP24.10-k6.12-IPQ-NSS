@@ -54,10 +54,6 @@ sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $CFG_FILE
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
 
-#echo "更新 golang..."
-rm -rf ./feeds/packages/lang/golang
-git clone -b 25.x https://github.com/sbwml/packages_lang_golang ./feeds/packages/lang/golang
-
 vlmcsd_patches="./feeds/packages/net/vlmcsd/patches/"
 mkdir -p $vlmcsd_patches && cp -f ../patches/001-fix_compile_with_ccache.patch $vlmcsd_patches
 
