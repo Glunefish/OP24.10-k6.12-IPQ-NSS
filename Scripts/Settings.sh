@@ -3,6 +3,21 @@
 #解决nss报错
 #sed -i 's|3ec87f221e8905d4b6b8b3d207b7f7c4666c3bc8db7c1f06d4ae2e78f863b8f4|881cbf75efafe380b5adc91bfb1f68add5e29c9274eb950bb1e815c7a3622807|g' ./feeds/nss_packages/firmware/nss-firmware/Makefile
 
+#修改LCP间隔阈值 3次 10秒
+cat > package/network/services/ppp/patches/100-pppoe-reasonable-lcp-interval.patch << 'EOF'
+--- a/files/ppp.sh
++++ b/files/ppp.sh
+@@ -123,7 +123,7 @@
+ 	[ -n "$pppname" ] || pppname="${proto:-ppp}-$config"
+ 	[ -n "$unnumbered" ] && {
+ 		local subnets
+-		[ -n "$keepalive" ] || keepalive="5 1"
++		[ -n "$keepalive" ] || keepalive="3 10"
+ 
+ 		local lcp_failure="${keepalive%%[, ]*}"
+ 		local lcp_interval="${keepalive##*[, ]}"
+EOF
+
 #修改默认主题
 sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
 #修改immortalwrt.lan关联IP
