@@ -58,6 +58,9 @@ sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
 rm -rf ./feeds/packages/lang/golang
 git clone -b 25.x https://github.com/sbwml/packages_lang_golang ./feeds/packages/lang/golang
 
+vlmcsd_patches="./feeds/packages/net/vlmcsd/patches/"
+mkdir -p $vlmcsd_patches && cp -f ../patches/001-fix_compile_with_ccache.patch $vlmcsd_patches
+
 #修复dropbear
 #sed -i "s/Interface/DirectInterface/" ./package/network/services/dropbear/files/dropbear.config
 sed -i "/Interface/d" ./package/network/services/dropbear/files/dropbear.config
