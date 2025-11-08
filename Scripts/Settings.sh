@@ -40,8 +40,16 @@ sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $CFG_FILE
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
 
-#修改LCP阈值间隔 3次 10秒
+# 修改LCP阈值间隔 3次 10秒
 sed -i '126s/keepalive="5 1"/keepalive="3 10"/' ./package/network/services/ppp/files/ppp.sh
+sed -n '126p' ./package/network/services/ppp/files/ppp.sh
+if grep -q 'keepalive="3 10"' ./package/network/services/ppp/files/ppp.sh; then
+    echo "✅ 修改成功：LCP keepalive已从 '5 1' 改为 '3 10'"
+else
+    echo "❌ 修改失败：未找到修改后的内容"
+    echo "=== 当前第126行内容 ==="
+    sed -n '126p' ./package/network/services/ppp/files/ppp.sh
+fi
 
 #修复dropbear
 #sed -i "s/Interface/DirectInterface/" ./package/network/services/dropbear/files/dropbear.config
