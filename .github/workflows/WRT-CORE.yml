@@ -160,7 +160,6 @@ jobs:
 
       - name: Custom Settings
         run: |
-          . $GITHUB_WORKSPACE/Scripts/function.sh
           
           cd ./wrt/
           
@@ -169,8 +168,6 @@ jobs:
           else
             cat $GITHUB_WORKSPACE/Config/$WRT_CONFIG.txt $GITHUB_WORKSPACE/Config/GENERAL.txt >> .config
           fi
-
-          generate_config && cat .config
           
           $GITHUB_WORKSPACE/Scripts/Settings.sh
 
