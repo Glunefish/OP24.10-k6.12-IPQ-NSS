@@ -5,6 +5,7 @@
 
 #修改默认主题
 sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
+
 #修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 
@@ -45,8 +46,6 @@ sed -i '126s/keepalive="5 1"/keepalive="3 10"/' ./package/network/services/ppp/f
 #修复dropbear
 #sed -i "s/Interface/DirectInterface/" ./package/network/services/dropbear/files/dropbear.config
 sed -i "/Interface/d" ./package/network/services/dropbear/files/dropbear.config
-#拷贝files 文件夹到编译目录
-cp -r ../files ./
 
 #配置文件修改
 echo "CONFIG_PACKAGE_luci=y" >> ./.config
