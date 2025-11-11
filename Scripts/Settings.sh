@@ -10,7 +10,10 @@ sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/coll
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 
 #修改DHCP客户数
-sed -i 's/option limit\t150/option limit\t100/' package/network/services/dnsmasq/files/dhcp.conf
+sed -i 's/option limit\t150/option limit\t100/' $(find ./package/network/services/dnsmasq/files/ -type f -name "dhcp.conf")
+
+# 修改LCP阈值间隔 3次 10秒
+sed -i 's/keepalive="5 1"/keepalive="3 10"/' $(find ./package/network/services/ppp/ -type f -name "ppp.sh")
 
 #添加编译日期标识
 sed -i "s/(\(luciversion || ''\))/(\1) + (' \/ $WRT_MARK-$WRT_DATE')/g" $(find ./feeds/luci/modules/luci-mod-status/ -type f -name "10_system.js")
@@ -39,17 +42,6 @@ CFG_FILE="./package/base-files/files/bin/config_generate"
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $CFG_FILE
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
-
-# 修改LCP阈值间隔 3次 10秒
-sed -i '126s/keepalive="5 1"/keepalive="3 10"/' ./package/network/services/ppp/files/ppp.sh
-sed -n '126p' ./package/network/services/ppp/files/ppp.sh
-if grep -q 'keepalive="3 10"' ./package/network/services/ppp/files/ppp.sh; then
-    echo "✅ 修改成功：LCP keepalive已从 '5 1' 改为 '3 10'"
-else
-    echo "❌ 修改失败：未找到修改后的内容"
-    echo "=== 当前第126行内容 ==="
-    sed -n '126p' ./package/network/services/ppp/files/ppp.sh
-fi
 
 #修复dropbear
 #sed -i "s/Interface/DirectInterface/" ./package/network/services/dropbear/files/dropbear.config
