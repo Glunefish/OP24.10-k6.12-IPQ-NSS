@@ -46,12 +46,11 @@ UPDATE_PACKAGE() {
 
 # UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
 
-UPDATE_PACKAGE "aurora" "eamonxg/luci-theme-aurora" "master"
 UPDATE_PACKAGE "argon" "sbwml/luci-theme-argon" "openwrt-24.10"
-
-UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 UPDATE_PACKAGE "GPackages" "GruntFish/GPackages" "Packages" "" "luci-app-timecontrol luci-app-pushbot pushbot luci-app-wolplus luci-app-lucky lucky luci-app-watchcat-plus watchcat luci-app-watchdog watchdog gecoosac luci-app-gecoosac luci-app-adguardhome adguardhome"
 
+#UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
+#UPDATE_PACKAGE "aurora" "eamonxg/luci-theme-aurora" "master"
 #UPDATE_PACKAGE "kucat" "sirpdboy/luci-theme-kucat" "js"
 #UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
 #UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
