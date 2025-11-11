@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#解决nss报错
-#sed -i 's|3ec87f221e8905d4b6b8b3d207b7f7c4666c3bc8db7c1f06d4ae2e78f863b8f4|881cbf75efafe380b5adc91bfb1f68add5e29c9274eb950bb1e815c7a3622807|g' ./feeds/nss_packages/firmware/nss-firmware/Makefile
-
 #修改默认主题
 sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/collections/ -type f -name "Makefile")
 
@@ -10,14 +7,34 @@ sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/coll
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 
 #修改DHCP客户数
-sed -i 's/option limit\t150/option limit\t100/' $(find ./package/network/services/dnsmasq/files/ -type f -name "dhcp.conf")
+dhcp_conf_file=$(find ./package/network/services/dnsmasq/files/ -type f -name "dhcp.conf")
+if [ -n "$dhcp_conf_file" ] && [ -f "$dhcp_conf_file" ]; then
+    sed -i 's/option limit\t150/option limit\t100/' "$dhcp_conf_file" || \
+    sed -i 's/option limit    150/option limit    100/' "$dhcp_conf_file"
+else
+    echo "错误: 未找到 dhcp.conf 文件"
+    exit 1
+fi
 
 # 修改LCP阈值间隔 3次 10秒
-sed -i 's/keepalive="5 1"/keepalive="3 10"/' $(find ./package/network/services/ppp/ -type f -name "ppp.sh")
+# 修改 PPP keepalive 设置
+ppp_sh_file="./package/network/services/ppp/files/ppp.sh"
+if [ -f "$ppp_sh_file" ]; then
+    echo "修改 PPP keepalive 配置..."
+    sed -i 's/keepalive="5 1"/keepalive="3 10"/' "$ppp_sh_file"
+else
+    echo "错误: 未找到 ppp.sh 文件"
+    exit 1
+fi
+# 验证修改
+echo "修改结果验证："
+echo "DHCP 配置:"
+grep "option limit" "$dhcp_conf_file"
+echo "PPP 配置:"
+grep 'keepalive="3 10"' "$ppp_sh_file"
 
 #添加编译日期标识
 sed -i "s/(\(luciversion || ''\))/(\1) + (' \/ $WRT_MARK-$WRT_DATE')/g" $(find ./feeds/luci/modules/luci-mod-status/ -type f -name "10_system.js")
-
 
 WIFI_SH=$(find ./target/linux/{mediatek/filogic,qualcommax}/base-files/etc/uci-defaults/ -type f -name "*set-wireless.sh" 2>/dev/null)
 WIFI_UC="./package/network/config/wifi-scripts/files/lib/wifi/mac80211.uc"
