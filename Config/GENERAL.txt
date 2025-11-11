@@ -13,6 +13,9 @@ CONFIG_PACKAGE_luci-app-tailscale=n
 CONFIG_PACKAGE_kmod-veth=n
 CONFIG_PACKAGE_kmod-wireguard=n
 
+#内存回收补丁？
+CONFIG_KERNEL_SKB_RECYCLER=y
+CONFIG_KERNEL_SKB_RECYCLER_MULTI_CPU=y
 
 #增加插件
 CONFIG_PACKAGE_luci-app-autoreboot=y
