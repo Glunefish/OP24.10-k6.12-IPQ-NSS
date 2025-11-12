@@ -6,26 +6,20 @@ sed -i "s/luci-theme-bootstrap/luci-theme-$WRT_THEME/g" $(find ./feeds/luci/coll
 #修改immortalwrt.lan关联IP
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $(find ./feeds/luci/modules/luci-mod-system/ -type f -name "flash.js")
 
-#修改DHCP客户数 - 只替换数字
+#修改DHCP客户数 - 只替换limit行的数字
 dhcp_conf_file=$(find ./package/network/services/dnsmasq/files/ -type f -name "dhcp.conf")
 if [ -n "$dhcp_conf_file" ] && [ -f "$dhcp_conf_file" ]; then
-    sed -i '/limit.*150/s/150/100/' "$dhcp_conf_file"
+    sed -i '/limit/s/150/100/' "$dhcp_conf_file"
 else
     echo "错误: 未找到 dhcp.conf 文件"
     exit 1
 fi
 
-# 修改 PPP keepalive 设置 - 修复sed命令
+# 修改 PPP keepalive 设置 - 分别替换数字
 ppp_sh_file="./package/network/services/ppp/files/ppp.sh"
 if [ -f "$ppp_sh_file" ]; then
     echo "修改 PPP keepalive 配置..."
-    # 方法1：直接替换默认值
-    sed -i 's/keepalive="5 1"/keepalive="3 10"/' "$ppp_sh_file"
-    
-    # 方法2：如果方法1没匹配到，尝试其他格式
-    if ! grep -q 'keepalive="3 10"' "$ppp_sh_file"; then
-        sed -i 's/keepalive=\"5 1\"/keepalive=\"3 10\"/' "$ppp_sh_file"
-    fi
+    sed -i '/keepalive/s/5/3/g; /keepalive/s/1/10/g' "$ppp_sh_file"
 else
     echo "错误: 未找到 ppp.sh 文件"
     exit 1
