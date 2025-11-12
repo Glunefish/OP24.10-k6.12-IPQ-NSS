@@ -19,7 +19,7 @@ fi
 ppp_sh_file="./package/network/services/ppp/files/ppp.sh"
 if [ -f "$ppp_sh_file" ]; then
     echo "修改 PPP keepalive 配置..."
-    sed -i '/keepalive/s/5/3/g; /keepalive/s/1/10/g' "$ppp_sh_file"
+    sed -i 's|keepalive="5 1"|keepalive="3 10"|' "$ppp_sh_file"
 else
     echo "错误: 未找到 ppp.sh 文件"
     exit 1
