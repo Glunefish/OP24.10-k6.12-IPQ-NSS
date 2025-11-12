@@ -48,13 +48,13 @@ UPDATE_PACKAGE() {
 
 UPDATE_PACKAGE "argon" "sbwml/luci-theme-argon" "openwrt-24.10"
 UPDATE_PACKAGE "GPackages" "GruntFish/GPackages" "Packages" "" "luci-app-timecontrol luci-app-pushbot pushbot luci-app-wolplus luci-app-lucky lucky luci-app-watchcat-plus watchcat luci-app-watchdog watchdog gecoosac luci-app-gecoosac luci-app-adguardhome adguardhome"
+UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 
 #UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 #UPDATE_PACKAGE "aurora" "eamonxg/luci-theme-aurora" "master"
 #UPDATE_PACKAGE "kucat" "sirpdboy/luci-theme-kucat" "js"
 #UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
 #UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
-#UPDATE_PACKAGE "openclash" "vernesong/OpenClash" "dev" "pkg"
 #UPDATE_PACKAGE "passwall" "xiaorouji/openwrt-passwall" "main" "pkg"
 #UPDATE_PACKAGE "passwall2" "xiaorouji/openwrt-passwall2" "main" "pkg"
 #UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
