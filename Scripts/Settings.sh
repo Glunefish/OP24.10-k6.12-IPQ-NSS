@@ -1,18 +1,5 @@
 #!/bin/bash
 
-# 设置变量（确保这些环境变量已传递）
-WRT_THEME="${WRT_THEME:-argonne}"
-WRT_IP="${WRT_IP:-192.168.1.1}"
-WRT_NAME="${WRT_NAME:-MyRouter}"
-WRT_SSID="${WRT_SSID:-OpenWrt}"
-WRT_WORD="${WRT_WORD:-password}"
-
-echo "开始自定义设置..."
-echo "主题: $WRT_THEME"
-echo "IP: $WRT_IP"
-echo "主机名: $WRT_NAME"
-echo "SSID: $WRT_SSID"
-
 # 强制清理缓存，确保修改生效
 echo "清理编译缓存..."
 make package/network/services/dnsmasq/clean 2>/dev/null || true
